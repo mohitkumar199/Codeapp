@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>CodePad - Web Code Editor</title>
+    <meta name="description" content="A mobile-friendly code editor with live preview">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .tab-content {
+            display: none;
+            flex: 1;
+            overflow: hidden;
+        }
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+        }
+        .editor {
+            flex: 1;
+            min-height: 0;
+        }
+        .preview {
+            flex: 1;
+            min-height: 0;
+        }
+        #installBtn {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 0.5rem;
+            }
+        }
+        /* iOS specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            .editor, .preview {
+                height: -webkit-fill-available;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-0">
+        <header class="flex justify-between items-center p-2 bg-white shadow-sm">
+            <h1 class="text-xl font-bold text-blue-600">CodePad</h1>
+            <div class="flex items-center space-x-1">
+                <button id="installBtn" class="bg-blue-600 text-white px-2 py-1 rounded-md text-xs flex items-center">
+                    <i class="fas fa-download mr-1"></i> Install
+                </button>
+                <button id="saveBtn" class="bg-green-600 text-white px-2 py-1 rounded-md text-xs flex items-center">
+                    <i class="fas fa-save mr-1"></i> Save
+                </button>
+                <button id="exportBtn" class="bg-purple-600 text-white px-2 py-1 rounded-md text-xs flex items-center">
+                    <i class="fas fa-file-archive mr-1"></i> Export
+                </button>
+            </div>
+        </header>
+
+        <div class="flex-1 flex flex-col bg-white overflow-hidden">
+            <div class="flex border-b">
+                <button class="tab-btn px-3 py-2 font-medium text-blue-600 border-b-2 border-blue-600 flex-1 text-center" data-tab="editor">
+                    <i class="fas fa-code mr-1"></i>Editor
+                </button>
+                <button class="tab-btn px-3 py-2 font-medium text-gray-600 flex-1 text-center" data-tab="preview">
+                    <i class="fas fa-eye mr-1"></i>Preview
+                </button>
+                <button class="tab-btn px-3 py-2 font-medium text-gray-600 flex-1 text-center" data-tab="projects">
+                    <i class="fas fa-folder mr-1"></i>Projects
+                </button>
+            </div>
+
+            <div id="editor" class="tab-content active">
+                <div class="flex space-x-1 p-1 bg-gray-100">
+                    <button class="html-tab px-2 py-1 bg-blue-600 text-white rounded text-sm flex-1">HTML</button>
+                    <button class="css-tab px-2 py-1 bg-gray-200 rounded text-sm flex-1">CSS</button>
+                    <button class="js-tab px-2 py-1 bg-gray-200 rounded text-sm flex-1">JS</button>
+                </div>
+                <div class="html-editor editor">
+                    <div class="flex bg-gray-800 text-white px-2 py-1 text-sm">
+                        <span>index.html</span>
+                    </div>
+                    <textarea id="htmlCode" class="w-full h-full p-2 font-mono text-sm bg-gray-900 text-gray-100 outline-none resize-none"></textarea>
+                </div>
+                <div class="css-editor editor hidden">
+                    <div class="flex bg-gray-800 text-white px-2 py-1 text-sm">
+                        <span>style.css</span>
+                    </div>
+                    <textarea id="cssCode" class="w-full h-full p-2 font-mono text-sm bg-gray-900 text-gray-100 outline-none resize-none"></textarea>
+                </div>
+                <div class="js-editor editor hidden">
+                    <div class="flex bg-gray-800 text-white px-2 py-1 text-sm">
+                        <span>script.js</span>
+                    </div>
+                    <textarea id="jsCode" class="w-full h-full p-2 font-mono text-sm bg-gray-900 text-gray-100 outline-none resize-none"></textarea>
+                </div>
+            </div>
+
+            <div id="preview" class="tab-content">
+                <iframe id="previewFrame" class="preview w-full h-full border-0 bg-white"></iframe>
+            </div>
+
+            <div id="projects" class="tab-content p-2 overflow-y-auto">
+                <h2 class="text-lg font-semibold mb-2">Saved Projects</h2>
+                <div id="projectList" class="grid grid-cols-1 gap-2">
+                    <!-- Projects will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

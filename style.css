@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  font-family: monospace;
+  background: #1e1e1e;
+  color: #ccc;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #2d2d2d;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-bottom: 1px solid #444;
+  z-index: 1000;
+}
+
+.toolbar button {
+  background: #3c3c3c;
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.toolbar button:hover {
+  background: #555;
+}
+
+#editor-section {
+  margin-top: 60px;
+  padding: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 300px;
+  background: #1e1e1e;
+  color: #ccc;
+  border: 1px solid #444;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+iframe {
+  width: 100%;
+  height: 300px;
+  border: 1px solid #444;
+  margin-top: 10px;
+  background: #fff;
+}
